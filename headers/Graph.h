@@ -1,4 +1,5 @@
 #define LIMIT 100
+#define INF 9999
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -77,6 +78,34 @@ WeightedAdjacencyMatrix weighted_adjacency_matrix_from_file(FILE *fp)
         while (weight != NULL)
         {
             tx.base[i][j++] = atoi(weight);
+            weight = strtok(NULL, " ");
+        }
+        i++;
+    }
+
+    return tx;
+}
+
+WeightedAdjacencyMatrix weighted_adjacency_matrix_from_file_with_no_edge_as_int_max(FILE *fp)
+{
+    char line[LIMIT];
+
+    fgets(line, LIMIT, fp);
+    int len = atoi(line);
+
+    WeightedAdjacencyMatrix tx = create_matrix(len, len);
+    tx.rows = len;
+    tx.cols = len;
+
+    int i = 0, j;
+    while (fgets(line, LIMIT, fp) != NULL)
+    {
+        char *weight = strtok(line, " ");
+        j = 0;
+        while (weight != NULL)
+        {
+            int r = atoi(weight);
+            tx.base[i][j++] = r != 0 ? r : (i != j ? INF : 0);
             weight = strtok(NULL, " ");
         }
         i++;
