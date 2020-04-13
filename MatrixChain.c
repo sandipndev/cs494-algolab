@@ -19,12 +19,21 @@ void print_optimal_parens(Matrix s, int i, int j)
 
 int main()
 {
-    int p[7] = {5, 10, 3, 12, 5, 50, 6};
+    int n;
+    printf("? Number of matrices: ");
+    scanf("%d", &n);
 
-    int n = 7 - 1;
+    int *p = calloc(n + 1, sizeof(int));
+    int i, len, j, k, cost;
+
+    for (i = 0; i < n + 1; i++)
+    {
+        printf("? p[%d]: ", i);
+        scanf("%d", &p[i]);
+    }
+
     Matrix m = create_matrix(n, n);
     Matrix s = create_matrix(n, n);
-    int i, len, j, k, cost;
 
     for (i = 0; i < n; i++)
         m.base[i][i] = 0;
